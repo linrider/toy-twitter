@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:54321/sweater
+    username: postgres
+    password: asdasd123
+  mustache:
+    servlet:
+      expose-request-attributes: true
