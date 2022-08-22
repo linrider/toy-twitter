@@ -1,7 +1,18 @@
+mail:
+  debug: true
+upload:
+  path: /home/oldrobot/Downloads/sweater/uploads
 server:
   port: 8081
 spring:
+  mail:
+    host: smtp.gmail.com
+    username: wladislaw.lazin@gmail.com
+    password: Ko19Zz98GsF
+    port: 465
+    protocol: smtps
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
     database: postgresql
@@ -10,6 +21,5 @@ spring:
     url: jdbc:postgresql://localhost:54321/sweater
     username: postgres
     password: asdasd123
-  mustache:
-    servlet:
-      expose-request-attributes: true
+  freemarker:
+    expose-request-attributes: true
