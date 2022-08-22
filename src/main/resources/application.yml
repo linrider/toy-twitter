@@ -7,8 +7,8 @@ server:
 spring:
   mail:
     host: smtp.gmail.com
-    username: wladislaw.lazin@gmail.com
-    password: Ko19Zz98GsF
+    username: 
+    password: 
     port: 465
     protocol: smtps
   jpa:
