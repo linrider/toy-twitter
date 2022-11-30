@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
             user.setRoles(Collections.singleton(Role.USER));
             user.setActivationCode(UUID.randomUUID().toString());
             userRepository.save(user);
-            if (!StringUtils.isEmpty(user.getEmail())) {
+            if (StringUtils.hasLength(user.getEmail())) {
                 String message = String.format(
                         "Hello, %s! \n" + "Welcome to Swearter. Please, visit the next link: http://localhost:8081/activate/%s",
                         user.getUsername(),
