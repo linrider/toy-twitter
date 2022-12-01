@@ -3,5 +3,5 @@
 <@c.page>
     <div class="mb-1">Add new user</div>
 ${message!}
-<@l.login "registrtion" true />
+<@l.login "registration" true />
 </@c.page>
