@@ -12,11 +12,12 @@ spring:
     port: 465
     protocol: smtps
   jpa:
+    generate-ddl: false
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     database: postgresql
-    show-sql: true
+    show-sql: false
   datasource:
     url: jdbc:postgresql://localhost:54321/sweater
     username: postgres
