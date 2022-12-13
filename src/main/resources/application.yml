@@ -1,14 +1,14 @@
 mail:
   debug: true
 upload:
-  path: /home/old_robot/Downloads/sweater/uploads
+  path: ${SWEATER_UPLOAD_PATH}
 server:
   port: 8081
 spring:
   mail:
     host: smtp.gmail.com
-    username: 
-    password: 
+    username: ${EMAIL_LOGIN}
+    password: ${EMAIL_PASSWORD}
     port: 465
     protocol: smtps
   jpa:
