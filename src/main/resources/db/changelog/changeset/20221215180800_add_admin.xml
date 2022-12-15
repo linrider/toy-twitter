@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+                        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">  
+
+    <changeSet id="insert_admin_into_usr" author="oldrobot">
+        <insert tableName="usr">
+            <column name="id" value="1"/>
+        </insert>
+        <insert tableName="usr">
+            <column name="username" value="Admin"/>
+        </insert>
+        <insert tableName="usr">
+            <column name="password" value="123"/>
+        </insert>
+        <insert tableName="usr">
+            <column name="active" value="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert_role_for_admin" author="oldrobot">
+        <insert tableName="user_role">
+            <column name="user_id" value="1"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="roles" value="USER"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="1"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="roles" value="ADMIN"/>
+        </insert>
+    </changeSet>
+
+‹</databaseChangeLog>
