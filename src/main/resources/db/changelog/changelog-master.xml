@@ -7,6 +7,6 @@
       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
 
     <include file="db/changelog/changeset/create_tables.sql" relativeToChangelogFile="false"/>
-    <include file="db/changelog/changeset/20221215180800_add_admin.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changeset/202212152324_add_admin.sql" relativeToChangelogFile="false"/>
 <!--    сюда ещё действия добавлять -->
 </databaseChangeLog>
