@@ -8,5 +8,6 @@
 
     <include file="db/changelog/changeset/create_tables.sql" relativeToChangelogFile="false"/>
     <include file="db/changelog/changeset/202212152324_add_admin.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changeset/20221228013500_encode_passwords.sql" relativeToChangelogFile="false"/>
 <!--    сюда ещё действия добавлять -->
 </databaseChangeLog>
