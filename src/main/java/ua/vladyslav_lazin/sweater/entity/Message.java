@@ -1,18 +1,27 @@
 package ua.vladyslav_lazin.sweater.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @NotBlank(message = "Please enter a message")
+    @Length(max = 2048, message = "Message is too long (more than 2048)")
     private String text;
+    
     private String tag;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
+
     private String filename;
+
     public Message() {
     }
 
