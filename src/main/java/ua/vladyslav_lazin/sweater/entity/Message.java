@@ -13,7 +13,7 @@ public class Message {
     @NotBlank(message = "Please enter a message")
     @Length(max = 2048, message = "Message is too long (more than 2048)")
     private String text;
-    
+    @Length(max = 255, message = "Message is too long (more than 255)")
     private String tag;
 
     @ManyToOne(fetch = FetchType.EAGER)
