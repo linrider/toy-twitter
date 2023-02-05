@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @NotBlank (message = "Password cannnot be blank")
     private String password;
     @Transient
-    @NotBlank (message = "Password confirmation be blank")
+    @NotBlank (message = "Password confirmation cannot be blank")
     private String password2;
     private boolean active;
     
