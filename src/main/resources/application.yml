@@ -1,5 +1,5 @@
 recaptcha:
-  secret:
+  secret: ${SWEATER_CAPTCHA_KEY}
 mail:
   debug: true
 upload:
@@ -17,7 +17,7 @@ spring:
     generate-ddl: false
     open-in-view: false
     hibernate:
-      ddl-auto:  validate 
+      ddl-auto: validate 
     database: postgresql
     show-sql: false
   datasource:
