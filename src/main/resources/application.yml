@@ -1,5 +1,5 @@
 recaptcha:
-  secret: 6LeqYXUkAAAAAAvKFAQFek5LBwyoq6cFreR1QRx_
+  secret:
 mail:
   debug: true
 upload:
