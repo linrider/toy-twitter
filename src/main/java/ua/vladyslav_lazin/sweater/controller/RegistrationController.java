@@ -1,5 +1,6 @@
 package ua.vladyslav_lazin.sweater.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import ua.vladyslav_lazin.sweater.entity.User;
 import ua.vladyslav_lazin.sweater.service.UserService;
@@ -18,10 +20,17 @@ import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
+    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify";
     private final UserService userService;
 
-    public RegistrationController(UserService userService) {
+    @Value("${recaptcha.secret}")
+    private String secret;
+
+    private RestTemplate restTemplate;
+
+    public RegistrationController(UserService userService, RestTemplate restTemplate) {
         this.userService = userService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping("/registration")
@@ -32,13 +41,14 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(
             @RequestParam("password2") String passwordConfirm,
+            @RequestParam("g-recaptcha-responce") String captchaResponce, 
             @Valid User user, 
             BindingResult bindingResult, 
             Model model
     ) {
         boolean isConfirmEmpty = !StringUtils.hasLength(passwordConfirm);
         if (!StringUtils.hasLength(passwordConfirm)) {
-            model.addAttribute("password2Error". "Password confirmation cannot be blank");
+            model.addAttribute("password2Error", "Password confirmation cannot be blank");
             
         }
         if (user.getPassword() != null && !user.getPassword().equals(passwordConfirm)) {
@@ -64,8 +74,10 @@ public class RegistrationController {
     public String activate(Model model, @PathVariable String code) {
         boolean isActivated = userService.activateUser(code);
         if (isActivated) {
+            model.addAttribute("messageType", "success");
             model.addAttribute("message", "User successfully activated");
         } else {
+            model.addAttribute("messageType", "danger");
             model.addAttribute("message", "Activation code is not found");
         }
         return "login";
