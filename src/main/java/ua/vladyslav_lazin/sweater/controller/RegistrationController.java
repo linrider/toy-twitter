@@ -13,14 +13,16 @@ import org.springframework.web.client.RestTemplate;
 
 import ua.vladyslav_lazin.sweater.entity.User;
 import ua.vladyslav_lazin.sweater.service.UserService;
+import ua.vladyslav_lazin.sweater.entity.dto.CaptchaResponseDto;
 
+import java.util.Collections;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
-    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify";
+    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response";
     private final UserService userService;
 
     @Value("${recaptcha.secret}")
@@ -41,11 +43,18 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(
             @RequestParam("password2") String passwordConfirm,
-            @RequestParam("g-recaptcha-responce") String captchaResponce, 
+            @RequestParam("g-recaptcha-response") String captchaResponse, 
             @Valid User user, 
             BindingResult bindingResult, 
             Model model
     ) {
+        String url = String.format(CAPTCHA_URL, secret, captchaResponse);
+        CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
+
+        if (!response.isSuccess()) {
+            model.addAttribute("captchaError", "Please, fill the captcha");
+        }
+
         boolean isConfirmEmpty = !StringUtils.hasLength(passwordConfirm);
         if (!StringUtils.hasLength(passwordConfirm)) {
             model.addAttribute("password2Error", "Password confirmation cannot be blank");
@@ -56,7 +65,7 @@ public class RegistrationController {
             return "registration";
         }
         
-        if (isConfirmEmpty || bindingResult.hasErrors()) {
+        if (isConfirmEmpty || bindingResult.hasErrors() || !response.isSuccess()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errors);
             return "registration";
