@@ -7,6 +7,10 @@ upload:
 server:
   port: 8081
 spring:
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
   mail:
     host: smtp.gmail.com
     username: ${EMAIL_LOGIN}
