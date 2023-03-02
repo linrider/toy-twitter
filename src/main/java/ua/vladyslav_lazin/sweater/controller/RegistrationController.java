@@ -22,7 +22,7 @@ import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
-    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response";
+    private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
     private final UserService userService;
 
     @Value("${recaptcha.secret}")
