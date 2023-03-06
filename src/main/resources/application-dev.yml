@@ -1,4 +1,4 @@
-hostname: localhost:8081
+hostname: ${HOSTNAME}
 recaptcha:
   secret: ${SWEATER_CAPTCHA_KEY}
 mail:

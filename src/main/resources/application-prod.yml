@@ -1,4 +1,4 @@
-hostname: 192.168.1.71
+hostname: ${HOSTNAME}
 recaptcha:
   secret: ${SWEATER_CAPTCHA_KEY}
 mail:

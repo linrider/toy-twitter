@@ -1,5 +1,6 @@
 package ua.vladyslav_lazin.sweater.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,6 +30,9 @@ public class UserService implements UserDetailsService {
         this.mailSender = mailSender;
         this.passwordEncoder = passwordEncoder;
     }
+
+    @Value("${hostname}")
+    private String hostname;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -72,8 +76,9 @@ public class UserService implements UserDetailsService {
         if (StringUtils.hasLength(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n"
-                            + "Welcome to Swearter. Please, visit the next link: http://localhost:8081/activate/%s",
+                            + "Welcome to Swearter. Please, visit the next link: http://%s/activate/%s",
                     user.getUsername(),
+                    hostname,
                     user.getActivationCode());
             mailSender.sendMail(user.getEmail(), "Activation code", message);
         }
