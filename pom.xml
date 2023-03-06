@@ -17,6 +17,21 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+	<profiles>
+		<profile>
+		  <id>dev</id>
+		  <properties>
+			<spring.profiles.active>dev</spring.profiles.active>
+		  </properties>
+		</profile>
+		<profile>
+		  <id>prod</id>
+		  <properties>
+			<spring.profiles.active>prod</spring.profiles.active>
+		  </properties>
+		</profile>
+	  </profiles>
+	  
 	<dependencies>
 
 		<dependency>
@@ -108,7 +123,24 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-jdbc</artifactId>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.4.0-b180830.0359</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>4.0.2</version>
+		</dependency>
 
 	</dependencies>
 

@@ -1,7 +1,8 @@
+hostname: 192.168.1.71
 recaptcha:
   secret: ${SWEATER_CAPTCHA_KEY}
 mail:
-  debug: true
+  debug: false
 upload:
   path: ${SWEATER_UPLOAD_PATH}
 server:

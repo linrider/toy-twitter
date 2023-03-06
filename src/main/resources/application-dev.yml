@@ -1,0 +1,36 @@
+hostname: localhost:8081
+recaptcha:
+  secret: ${SWEATER_CAPTCHA_KEY}
+mail:
+  debug: true
+upload:
+  path: ${SWEATER_UPLOAD_PATH}
+server:
+  port: 8081
+spring:
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+  mail:
+    host: smtp.gmail.com
+    username: ${EMAIL_LOGIN}
+    password: ${EMAIL_PASSWORD}
+    port: 465
+    protocol: smtps
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate 
+    database: postgresql
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:54321/sweater
+    username: postgres
+    password: asdasd123
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: true
+  freemarker:
+    expose-request-attributes: true
