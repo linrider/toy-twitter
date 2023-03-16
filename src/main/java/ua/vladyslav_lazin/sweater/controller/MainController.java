@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,13 +88,37 @@ public class MainController {
 
     @GetMapping("/user-messages/{user}")
     public String userMessages(
-        @AuthenticationPrincipal User currentUser,
-        @PathVariable User user,
-        Model model
-    ) {
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable User user,
+            Model model,
+            @RequestParam Message message) {
         Set<Message> messages = user.getMessages();
+
         model.addAttribute("messages", messages);
+        model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
         return "userMessages";
     }
+
+    @PostMapping("/user-messages/{user}")
+    public String updateMessage(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable Long user,
+            @RequestParam("id") Message message,
+            @RequestParam("text") String text,
+            @RequestParam("tag") String tag,
+            @RequestParam("file") MultipartFile file) {
+        if (message.getAuthor().equals(currentUser)) {
+            if (StringUtils.hasLength(text)) {
+                message.setText(text);
+            }
+
+            if (StringUtils.hasLength(tag)) {
+                message.setTag(tag);
+            }
+            messageRepository.save(message);
+        }
+        return "redirect:/user-messages/" + user;
+    }
+
 }
