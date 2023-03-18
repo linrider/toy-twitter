@@ -41,10 +41,9 @@ public class MainController {
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
         Iterable<Message> messages = messageRepository.findAll();
+
         if (filter != null && !filter.isEmpty()) {
             if (filter.equals("none")) {
-                messages = messageRepository.findByTag("");
-            } else {
                 messages = messageRepository.findByTag(filter);
             }
         } else {
@@ -63,21 +62,13 @@ public class MainController {
             Model model,
             @RequestParam("file") MultipartFile file) throws IOException {
         message.setAuthor(user);
+
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
             model.addAttribute("message", message);
         } else {
-            if (file != null && !file.getOriginalFilename().isEmpty()) {
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-                String uuidFile = UUID.randomUUID().toString();
-                String resulFileName = uuidFile + "." + file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/" + resulFileName));
-                message.setFilename(resulFileName);
-            }
+            saveFile(message, file);
             model.addAttribute("message", null);
             messageRepository.save(message);
         }
@@ -86,12 +77,29 @@ public class MainController {
         return "main";
     }
 
+    private void saveFile(@Valid Message message, @RequestParam("file") MultipartFile file) throws IOException {
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+            String resulFileName = uuidFile + "." + file.getOriginalFilename();
+            
+            file.transferTo(new File(uploadPath + "/" + resulFileName));
+            
+            message.setFilename(resulFileName);
+        }
+    }
+
     @GetMapping("/user-messages/{user}")
     public String userMessages(
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
             Model model,
-            @RequestParam Message message) {
+            @RequestParam(required = false) Message message) {
         Set<Message> messages = user.getMessages();
 
         model.addAttribute("messages", messages);
@@ -107,7 +115,8 @@ public class MainController {
             @RequestParam("id") Message message,
             @RequestParam("text") String text,
             @RequestParam("tag") String tag,
-            @RequestParam("file") MultipartFile file) {
+            @RequestParam("file") MultipartFile file
+        ) throws IOException {
         if (message.getAuthor().equals(currentUser)) {
             if (StringUtils.hasLength(text)) {
                 message.setText(text);
@@ -116,6 +125,8 @@ public class MainController {
             if (StringUtils.hasLength(tag)) {
                 message.setTag(tag);
             }
+            
+            saveFile(message, file);
             messageRepository.save(message);
         }
         return "redirect:/user-messages/" + user;
