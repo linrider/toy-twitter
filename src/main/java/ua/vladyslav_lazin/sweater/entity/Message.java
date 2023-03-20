@@ -1,11 +1,13 @@
 package ua.vladyslav_lazin.sweater.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-public class Message {
+public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

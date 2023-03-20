@@ -1,4 +1,4 @@
-hostname: ${HOSTNAME}
+hostname: ${HOST_IP}
 recaptcha:
   secret: ${SWEATER_CAPTCHA_KEY}
 mail:
@@ -6,7 +6,7 @@ mail:
 upload:
   path: ${SWEATER_UPLOAD_PATH}
 server:
-  port: 8081
+  port: 80
 spring:
   session:
     jdbc:
