@@ -3,6 +3,7 @@ package ua.vladyslav_lazin.sweater.controller;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -43,9 +44,8 @@ public class MainController {
         Iterable<Message> messages = messageRepository.findAll();
 
         if (filter != null && !filter.isEmpty()) {
-            if (filter.equals("none")) {
-                messages = messageRepository.findByTag(filter);
-            }
+            messages = messageRepository.findByTag(filter);
+
         } else {
             messages = messageRepository.findAll();
         }
@@ -81,15 +81,14 @@ public class MainController {
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
 
-
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             String uuidFile = UUID.randomUUID().toString();
             String resulFileName = uuidFile + "." + file.getOriginalFilename();
-            
+
             file.transferTo(new File(uploadPath + "/" + resulFileName));
-            
+
             message.setFilename(resulFileName);
         }
     }
@@ -100,6 +99,7 @@ public class MainController {
             @PathVariable User user,
             Model model,
             @RequestParam(required = false) Message message) {
+
         Set<Message> messages = user.getMessages();
 
         model.addAttribute("messages", messages);
@@ -115,8 +115,7 @@ public class MainController {
             @RequestParam("id") Message message,
             @RequestParam("text") String text,
             @RequestParam("tag") String tag,
-            @RequestParam("file") MultipartFile file
-        ) throws IOException {
+            @RequestParam("file") MultipartFile file) throws IOException {
         if (message.getAuthor().equals(currentUser)) {
             if (StringUtils.hasLength(text)) {
                 message.setText(text);
@@ -125,7 +124,7 @@ public class MainController {
             if (StringUtils.hasLength(tag)) {
                 message.setTag(tag);
             }
-            
+
             saveFile(message, file);
             messageRepository.save(message);
         }
