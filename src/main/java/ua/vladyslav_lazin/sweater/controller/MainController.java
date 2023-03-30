@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.vladyslav_lazin.sweater.entity.Message;
 import ua.vladyslav_lazin.sweater.entity.User;
 import ua.vladyslav_lazin.sweater.repository.MessageRepository;
+import ua.vladyslav_lazin.sweater.service.UserService;
 
 import java.io.File;
 import java.io.IOException;
@@ -102,6 +103,10 @@ public class MainController {
 
         Set<Message> messages = user.getMessages();
 
+        model.addAttribute("userChannel", user);
+        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
+        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
         model.addAttribute("messages", messages);
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));

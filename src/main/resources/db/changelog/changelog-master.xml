@@ -6,8 +6,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
 
-    <include file="db/changelog/changeset/create_tables.sql" relativeToChangelogFile="false"/>
-    <include file="db/changelog/changeset/202212152324_add_admin.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changeset/20221211131300_create_tables.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changeset/20221215232400_add_admin.sql" relativeToChangelogFile="false"/>
     <include file="db/changelog/changeset/20221228013500_encode_passwords.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changeset/20230328231300_add_subscriptions_table.sql" relativeToChangelogFile="false"/>
 <!--    сюда ещё действия добавлять -->
 </databaseChangeLog>
