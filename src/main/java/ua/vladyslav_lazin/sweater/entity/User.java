@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,16 +19,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank (message = "User name cannnot be blank")
+    @NotBlank(message = "User name cannnot be blank")
     private String username;
-    @NotBlank (message = "Password cannnot be blank")
+    @NotBlank(message = "Password cannnot be blank")
     private String password;
 
-
     private boolean active;
-    
-    @Email (message = "Email is not correct")
-    @NotBlank (message = "Email cannnot be blank")
+
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email cannnot be blank")
     private String email;
     private String activationCode;
 
@@ -36,52 +36,38 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Message> messages;
 
     @ManyToMany
-    @JoinTable(
-        name = "user_subscriptions", 
-        joinColumns = { @JoinColumn(name = "channel_id") },
-        inverseJoinColumns = { @JoinColumn(name = "subscriber_id")}
-    )
+    @JoinTable(name = "user_subscriptions", joinColumns = { @JoinColumn(name = "channel_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "subscriber_id") })
     private Set<User> subscribers = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(
-        name = "user_subscriptions", 
-        joinColumns = { @JoinColumn(name = "subscriber_id") },
-        inverseJoinColumns = { @JoinColumn(name = "channel_id") }
-    )
+    @JoinTable(name = "user_subscriptions", joinColumns = {
+            @JoinColumn(name = "subscriber_id") }, inverseJoinColumns = { @JoinColumn(name = "channel_id") })
     private Set<User> subscriptions = new HashSet<>();
-    
-    
+
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+        return Objects.hash(id);
     }
+
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(Object o) {
+        if (this == o)
             return true;
-        if (obj == null)
+        if (o == null || getClass() != o.getClass())
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
     }
+
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
+
     public Long getId() {
         return id;
     }
@@ -162,23 +148,29 @@ public class User implements UserDetails {
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
     }
+
     public Set<Message> getMessages() {
         return messages;
     }
+
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
+
     public Set<User> getSubscribers() {
         return subscribers;
     }
+
     public void setSubscribers(Set<User> subscribers) {
         this.subscribers = subscribers;
     }
+
     public Set<User> getSubscriptions() {
         return subscriptions;
     }
+
     public void setSubscriptions(Set<User> subscriptions) {
         this.subscriptions = subscriptions;
     }
-    
+
 }

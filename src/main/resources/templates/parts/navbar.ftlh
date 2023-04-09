@@ -32,7 +32,7 @@
                 <div class="navbar-text mr-3">
                     <#if user??>
                         ${name}
-                        <#else>Please login
+                        <#else>Please login or register
                     </#if>
                 </div>
                 <@l.logout />

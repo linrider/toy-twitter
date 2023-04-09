@@ -1,4 +1,4 @@
-hostname: ${HOST_IP}
+host_ip: ${HOST_IP}
 recaptcha:
   secret: ${SWEATER_CAPTCHA_KEY}
 mail:

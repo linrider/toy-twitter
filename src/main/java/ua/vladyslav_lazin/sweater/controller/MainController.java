@@ -75,7 +75,7 @@ public class MainController {
         }
         Iterable<Message> messages = messageRepository.findAll();
         model.addAttribute("messages", messages);
-        return "main";
+        return "redirect:/main";
     }
 
     private void saveFile(@Valid Message message, @RequestParam("file") MultipartFile file) throws IOException {
@@ -112,7 +112,7 @@ public class MainController {
         model.addAttribute("isCurrentUser", currentUser.equals(user));
         return "userMessages";
     }
-
+    
     @PostMapping("/user-messages/{user}")
     public String updateMessage(
             @AuthenticationPrincipal User currentUser,
