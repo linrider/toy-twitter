@@ -7,16 +7,16 @@
             <#if isSubscriber>
                 <a class="btn btn-info" href="/user/unsubscribe/${userChannel.id}">Unsubscribe</a>
                 <#else>
-                    <a class="btn btn-info" href="/user/sudscribe/${userChannel.Id}">Subscribe</a>
+                    <a class="btn btn-info" href="/user/sudscribe/${userChannel.id}">Subscribe</a>
             </#if>
         </#if>
         <div class="container my-3">
             <div class="row">
                 <div class="col">
-                    <div class="card>
-                    <div class=" card-body>
-                        <div class="card-title>Subscriptions</div>
-                        <h3 class=" card-text">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Subscriptions</div>
+                        <h3 class="card-text">
                             <a href="/user/subscriptions/${userChannel.id}/list">
                                 ${subscriptionsCount}
                             </a>
@@ -25,10 +25,10 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card>
-                    <div class=" card-body>
-                        <div class="card-title>Subscribers</div>
-                        <h3 class=" card-text">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Subscribers</div>
+                        <h3 class="card-text">
                             <a href="/user/subscribers/${userChannel.id}/list">
                                 ${subscribersCount}
                             </a>

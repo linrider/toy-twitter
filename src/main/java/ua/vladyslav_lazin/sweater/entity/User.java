@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -36,15 +37,15 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Message> messages;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_subscriptions", joinColumns = { @JoinColumn(name = "channel_id") }, inverseJoinColumns = {
             @JoinColumn(name = "subscriber_id") })
     private Set<User> subscribers = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_subscriptions", joinColumns = {
             @JoinColumn(name = "subscriber_id") }, inverseJoinColumns = { @JoinColumn(name = "channel_id") })
     private Set<User> subscriptions = new HashSet<>();
@@ -148,15 +149,15 @@ public class User implements UserDetails {
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
     }
-
+    
     public Set<Message> getMessages() {
         return messages;
     }
-
+    
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
-
+    
     public Set<User> getSubscribers() {
         return subscribers;
     }

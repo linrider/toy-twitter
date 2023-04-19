@@ -93,7 +93,7 @@ public class MainController {
             message.setFilename(resulFileName);
         }
     }
-
+  
     @GetMapping("/user-messages/{user}")
     public String userMessages(
             @AuthenticationPrincipal User currentUser,
@@ -112,7 +112,7 @@ public class MainController {
         model.addAttribute("isCurrentUser", currentUser.equals(user));
         return "userMessages";
     }
-    
+   
     @PostMapping("/user-messages/{user}")
     public String updateMessage(
             @AuthenticationPrincipal User currentUser,
