@@ -19,19 +19,19 @@
 	</properties>
 	<profiles>
 		<profile>
-		  <id>dev</id>
-		  <properties>
-			<spring.profiles.active>dev</spring.profiles.active>
-		  </properties>
+			<id>dev</id>
+			<properties>
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
 		</profile>
 		<profile>
-		  <id>prod</id>
-		  <properties>
-			<spring.profiles.active>prod</spring.profiles.active>
-		  </properties>
+			<id>prod</id>
+			<properties>
+				<spring.profiles.active>prod</spring.profiles.active>
+			</properties>
 		</profile>
-	  </profiles>
-	  
+	</profiles>
+
 	<dependencies>
 
 		<dependency>
@@ -140,6 +140,12 @@
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>4.0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.20.0</version>
 		</dependency>
 
 	</dependencies>

@@ -1,5 +1,7 @@
 package ua.vladyslav_lazin.sweater.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+
 import ua.vladyslav_lazin.sweater.entity.Message;
 import ua.vladyslav_lazin.sweater.entity.User;
 import ua.vladyslav_lazin.sweater.repository.MessageRepository;
-import ua.vladyslav_lazin.sweater.service.UserService;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -26,6 +28,9 @@ import javax.validation.Valid;
 
 @Controller
 public class MainController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
+
+
     private final MessageRepository messageRepository;
 
     public MainController(MessageRepository messageRepository) {
@@ -52,6 +57,8 @@ public class MainController {
         }
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
+
+        LOGGER.info("LOGGER: Vev main page with all user's messages.");
         return "main";
     }
 

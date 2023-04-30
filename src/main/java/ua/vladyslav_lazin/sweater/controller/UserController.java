@@ -1,5 +1,7 @@
 package ua.vladyslav_lazin.sweater.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -65,7 +69,9 @@ public class UserController {
     @GetMapping("subscribe/{user}")
     public String subscribe(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable User user) {
+            @PathVariable User user
+    ) {
+        LOGGER.info("LOGGER: Try to sudscribe you.");
         userService.subscribe(currentUser, user);
         return "redirect:/user-messages/" + user.getId();
     }
@@ -91,6 +97,7 @@ public class UserController {
         } else {
             model.addAttribute("users", user.getSubscribers());
         }
+        LOGGER.info("LOGGER: View your subscriptions.");
         return "subscriptions";
     }
 }
