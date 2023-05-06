@@ -7,7 +7,7 @@
             <#if isSubscriber>
                 <a class="btn btn-info" href="/user/unsubscribe/${userChannel.id}">Unsubscribe</a>
                 <#else>
-                    <a class="btn btn-info" href="/user/sudscribe/${userChannel.id}">Subscribe</a>
+                    <a class="btn btn-info" href="/user/subscribe/${userChannel.id}">Subscribe</a>
             </#if>
         </#if>
         <div class="container my-3">
