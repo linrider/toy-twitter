@@ -26,7 +26,7 @@ spring:
     database: postgresql
     show-sql: false
   datasource:
-    url: jdbc:postgresql://localhost:54321/sweater?serverTimezone='Europe/Kiev'
+    url: jdbc:postgresql://localhost:5432/toy_twitter?serverTimezone='Europe/Kiev'
     username: postgres
     password: asdasd123
   liquibase:
